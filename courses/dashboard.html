@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <h2>Applied Courses:</h2>
+        <ul id="appliedCourses">
+            <!-- Applied courses will be dynamically inserted here -->
+        </ul>
+    </div>
+
+    <script>
+        // Function to retrieve applied courses from local storage and display them on the dashboard
+        function displayAppliedCourses() {
+            // Get the applied course names from local storage
+            var appliedCourses = JSON.parse(localStorage.getItem('appliedCourses'));
+            var appliedCoursesList = document.getElementById('appliedCourses');
+
+            // Clear any existing content in the list
+            appliedCoursesList.innerHTML = '';
+
+            // Check if there are applied courses
+            if (appliedCourses && appliedCourses.length > 0) {
+                // Loop through the applied courses and add them to the list
+                appliedCourses.forEach(function(courseName, index) {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = courseName;
+                    appliedCoursesList.appendChild(listItem);
+                });
+            } else {
+                // If no courses are applied, display a message
+                var listItem = document.createElement('li');
+                listItem.textContent = 'No courses applied yet';
+                appliedCoursesList.appendChild(listItem);
+            }
+        }
+
+        // Call the function to display applied courses when the page loads
+        displayAppliedCourses();
+    </script>
+</body>
+</html>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- link for animation  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>Aniamtions</title>
+<style>
+   
+      /* @keyframes anime{
+        0%{background-color: aqua;margin-top: 0px;margin-left :0px;}
+        25%{background-color: rgb(255, 166, 0);margin-left:100px ;margin-top: 0px;margin-right:300px ;}
+        50%{background-color: red;margin-left:100px ;margin-top: 100px;margin-right:300px ;}
+        75%{background-color: green;margin-left:0px ;margin-top: 100px;margin-right:300px ;}
+
+    }
+    .d1{
+        height: 100px;
+        width: 200px;
+        background-color: aqua;
+        animation-name: anime;
+        animation-duration: 5s;
+    } */
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  img{
+    
+    border-radius: 50%;
+    box-shadow: 10px 10px 12px rgb(132, 132, 161,0.7);
+    transition :all 2s;
+    border: 3px solid rgb(0, 119, 255);
+   
+  }
+  img:hover{
+   transform: scale(1.1);
+  }
+  .card{
+    box-shadow: 7px 7px 4px gainsboro;
+    width: 300px;
+    height:375px;
+    overflow: hidden;
+    transition: all 2s;
+    text-align: center;
+    
+  }
+  .card-body{
+    text-shadow: 2px 2px 3px gray;
+    color: rgb(255, 0, 0); /* Red */
+
+background-color: rgba(255, 0, 0, 0.474); 
+    
+  }
+  .additional-info{
+    margin: auto;
+    width: 250px;
+   transition: all ease 1s;
+   background-image: linear-gradient(to bottom right,rgba(255,0,0,0),rgb(0, 81, 255,1),rgb(255, 145, 0));
+
+  }
+  
+  .additional-info:hover{
+   overflow: visible; }
+  .card:hover{
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
+
+    box-shadow: 0px  0px 5px gray ;
+  }
+</style>
+
+
+
+</head>
+<!-- <body>
+    
+    <div class="card">
+      <div class="card-image" >  <img src="https://images.unsplash.com/photo-1554350342-84cbb65fd7c6?q=80&w=1404&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="200px" height="200px">
+</div>
+<div class="card-body" >
+  <h3>Alsa</h3>
+  <p style="color: #666;">Photographer</p>
+ <p style="color: #666;">Location: X Y Z</p>
+<div class="additional-info animate__bounceIn">
+  <p >Bio: Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sapiente voluptatibus. Eligendi pariatur ad molestias! its dfrbybdywgd</p>
+</div>
+
+    </div>
+    </div>
+ 
+</body> -->
+</html> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Profile Card</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f3f3;
+}
+
+.profile-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  background-color: #ccc; /* Placeholder color */
+  background-image: url('profile-picture.jpg'); /* Replace with actual image */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 20px;
+  transition: transform 0.3s ease;
+}
+
+.profile-picture:hover {
+  transform: scale(1.05);
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.user-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.additional-details {
+  background: linear-gradient(135deg, #3498db, #9b59b6);
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.additional-details:hover {
+  background-color: #6c5ce7;
+}
+.image {
+
+float: left;
+
+shape-outside: circle(50%);
+
+width: 200px;
+
+height: 200px;
+
+margin-right: 150px;
+
+}
+.element {
+
+background-image: url('image.jpg');
+
+background-color: blue;
+
+background-blend-mode: multiply;
+
+}
+  </style>
+</head>
+<!-- <body>
+  <div class="profile-card">
+    <div class="profile-picture"></div>
+    <div class="user-info">
+      <h2 class="animate__animated animate__bounce">Jane Doe</h2>
+      <p>Web Developer</p>
+      <p>Location: New York</p>
+    </div>
+    <div class="additional-details">
+      <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae justo eu est aliquam malesuada.</p>
+    </div>
+  </div>
+  <hr>
+  <div class="image">
+    <img src="https://images.unsplash.com/photo-1554350342-84cbb65fd7c6?q=80&w=1404&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""  width="200px" height="200px">
+ <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+  </div>
+  <div class="element">this is texttt here</div>
+ -->
+
+
+  <!--______________Aniamtion website___________________-->
+
+
+
+
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Section</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .animated {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animated.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
+</head>
+<!-- <body>
+<div class="section">
+  <h2>This is the animated section</h2>
+</div>
+<div class="other-section">
+  <h2>This is another section</h2>
+</div>
+<script src="script.js"></script>
+</body> -->
+</html>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const animatedSection = document.querySelector('.section');
+  const otherSection = document.querySelector('.other-section');
+
+  function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    );
+  }
+
+  function toggleAnimation() {
+    if (isElementInViewport(animatedSection)) {
+      animatedSection.classList.add('animated', 'active');
+    } else {
+      animatedSection.classList.remove('animated', 'active');
+    }
+  }
+
+  toggleAnimation(); // Initial check
+
+  document.addEventListener('scroll', toggleAnimation);
+  window.addEventListener('resize', toggleAnimation);
+});
+
+  </script>
+</body>
+</html> 

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skill_sync Faculty</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #043257;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #043257;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="index.html">skill_sync</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="profile faculty.html" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <li class="sidebar-item">
+                      <a href="#" class="sidebar-link">
+                        <i class="lni lni-layout"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                <li class="sidebar-item">
+                    <a href="grading.html" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Result</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="add courses.html" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="lni lni-protection"></i>
+                        <span>Courses</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="add courses.html" class="sidebar-link">Add courses</a>
+                        </li>
+                      
+                    </ul>
+                </li>
+                
+                <li class="sidebar-item">
+                    <a href="exam_faculty.html" class="sidebar-link">
+                        <i class="lni lni-popup"></i>
+                        <span>Exam</span>
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="main p-3">
+            <div class="text-center">
+                <div class="container">
+                    <h1>Add New Course</h1>
+                    <form id="addCourseForm">
+                         <div class="form-group">
+                            <label for="courseCode">Course Category</label>
+                            <input type="text" id="category" name="category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseName">Course Name</label>
+                            <input type="text" id="courseName" name="courseName" required>
+                        </div>
+                       
+                        <!-- 
+                        <div class="form-group">
+                            <label for="courseCredits">Course Credits</label>
+                            <input type="number" id="courseCredits" name="courseCredits" min="1" max="10" required>
+                        </div> -->
+                        
+                        <div class="form-group">
+                            <label for="courseInstructor">Instructor Name</label>
+                            <input type="text" id="instructorName" name="instructorName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseDescription">Course Topics</label>
+                            <textarea id="courseTopics" name="courseTopics" placeholder="comma-separated" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Add Course</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+    // Your Firebase configuration here
+    const firebaseConfig = {
+    apiKey: "AIzaSyBOo8ucWkMXY9mcuLuFUOIgmbHzL_eXzWU",
+    authDomain: "skillsync-2326a.firebaseapp.com",
+    databaseURL: "https://skillsync-2326a-default-rtdb.firebaseio.com",
+    projectId: "skillsync-2326a",
+    storageBucket: "skillsync-2326a.appspot.com",
+    messagingSenderId: "725756538527",
+    appId: "1:725756538527:web:b45fc458b982fbc3e13caa"
+  };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('addCourseForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const category = document.getElementById('category').value;
+      const courseName = document.getElementById('courseName').value;
+      const instructorName = document.getElementById('instructorName').value;
+      const courseTopics = document.getElementById('courseTopics').value.split(',').map(topic => topic.trim());
+
+      const courseRef = ref(db, `categories/${category}/${courseName}`);
+      set(courseRef, {
+        instructor: instructorName,
+        topics: courseTopics
+      }).then(() => {
+        alert('Course added successfully!');
+        document.getElementById('addCourseForm').reset();
+      }).catch((error) => {
+        console.error('Error adding course: ', error);
+      });
+    });
+  </script>
+
+</html>

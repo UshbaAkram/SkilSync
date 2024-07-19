@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src = "https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+     
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body{
+            /* background-image: linear-gradient(-35deg, #134381 5%, #043257 100%); */
+            background-color: #043257;
+        }
+        h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+}
+
+a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #043257;
+    background-color: #043257;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #ffffff;
+}
+
+form {
+    /* background-image: linear-gradient(-225deg, #569ffd 2%, #043257 100%); */
+    /* background-image: linear-gradient(-225deg, #1e5e4a 5%, #043257 100%); */
+
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.social-container {
+    margin: 20px 0;
+}
+
+.social-container a {
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+.container {
+    background-color: #043257;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    margin: 20px auto;
+}
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: #ff416c;
+    background: -webkit-linear-gradient(to right, #25458b, #3373a786);
+    background: linear-gradient(to right, #25458b, #3373a786);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #ffffff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+               
+                <input type="text" placeholder="User Name" name="name" id="uname" autocomplete="off" required>
+                <input type="email" placeholder="Email" name="email" id="email" autocomplete="off" required>
+                <!-- <input type="registration" placeholder="Registration" name="registration" id="reg" autocomplete="off" required> -->
+                <input type="password" placeholder="Password" name="password" id="pswd" autocomplete="off" required>
+                <button id="signUp">Sign Up</button>
+            </form>
+        </div>
+    
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="text" placeholder="User Name" name="name" id="uname" autocomplete="off" required>
+
+                <input type="email" placeholder="Email" id="txt-input" autocomplete="off" required />
+                <input type="password" placeholder="Password" id="pwd" autocomplete="off" required/>
+                <!-- <p id="msg">i</p> -->
+                <a href="#" id="forgot">Forgot your password?</a>
+                 <button id="login">Sign In</button>
+            </form>
+        </div>
+    
+        <div class="overlay-container" >
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 style="margin-right: 90px;">Welcome Back!</h1>
+                    <p  style="margin-right: 90px;">
+                        To keep connected with us please login with your personal info
+                    </p>
+                    <button class="ghost" id="sIn" style="margin-right: 90px;">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 style="margin-left: 90px;">Hello, Friend!</h1>
+                    <p style="margin-left: 90px;">Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="sUp" style="margin-left: 90px;">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const signUpButton = document.getElementById('sUp');
+        const signInButton = document.getElementById('sIn');
+        const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+    container.classList.add('right-panel-active');
+});
+
+    signInButton.addEventListener('click', () => {
+    container.classList.remove('right-panel-active');
+});
+    </script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+  import {getAuth, onAuthStateChanged , createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider,
+    signOut,  getRedirectResult,  signInWithPopup, signInWithRedirect, } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+  import { getDatabase ,ref, set, onValue,update } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBOo8ucWkMXY9mcuLuFUOIgmbHzL_eXzWU",
+    authDomain: "skillsync-2326a.firebaseapp.com",
+    databaseURL: "https://skillsync-2326a-default-rtdb.firebaseio.com",
+    projectId: "skillsync-2326a",
+    storageBucket: "skillsync-2326a.appspot.com",
+    messagingSenderId: "725756538527",
+    appId: "1:725756538527:web:b45fc458b982fbc3e13caa"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase();
+  console.log("__firebase____")
+export { app, auth, getDatabase,ref, set,onValue , update};
+</script>
+<script type="module" src="login.js"></script>
+
+<!-- Include Firebase SDK
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script> -->
+<!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBOo8ucWkMXY9mcuLuFUOIgmbHzL_eXzWU",
+      authDomain: "skillsync-2326a.firebaseapp.com",
+      databaseURL: "https://skillsync-2326a-default-rtdb.firebaseio.com",
+      projectId: "skillsync-2326a",
+      storageBucket: "skillsync-2326a.appspot.com",
+      messagingSenderId: "725756538527",
+      appId: "1:725756538527:web:b45fc458b982fbc3e13caa"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    import{getDatabase, ref , set , child, update, remove, push, orderByChild, get}
+    from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+    const database = getDatabase();
+    const auth = getAuth(app);
+    
+      var uname = document.getElementById('uname');
+      var pswd = document.getElementById('pswd');
+      var reg = document.getElementById('reg');
+      var email = document.getElementById('email');
+      var btn = document.getElementById('btn');
+      console.log(firebase)
+
+
+
+
+
+    //   let RegisterUser= evt =>{
+    //     evt.preventDefault();
+    //     createUserWithEmailAndPassword(auth, emailInp.value, pswd.value)
+    //     .then((credential)=>{
+
+    //     })
+    //     .catch((error)=>{
+    //         alert("error")
+    //     })
+    //   }
+
+
+    //   console.log(btn.value)
+    //   console.log('hyyyyy')
+    //______________________save________
+    function save() {
+    const studentsRef = ref(database, "TheStd");
+
+    push(studentsRef, {
+        username: uname.value,
+        password: pswd.value,
+        registration: reg.value,
+        email: email.value
+    }).then(() => {
+        console.log("saved");
+        alert("saved");
+        uname.value = "";
+        pswd.value = "";
+        reg.value = "";
+        email.value = "";
+    }).catch((error) => {
+        console.error("Error saving student:", error);
+        alert("Error saving student");
+    });
+}
+
+
+//     function save() {     
+//     const studentsRef = ref(database, "TheStd");
+//     // const newStudentRef = push(studentsRef); // Generate a unique ID for the student
+//     // const studentId = newStudentRef.key; // Get the unique ID generated by Firebase
+
+//     set(studentsRef, {
+//        // studentId: studentId,
+//         username: uname.value,
+//         password: pswd.value,
+//         registration: reg.value,
+//         email: email.value
+//     }).then(() => {
+//        // console.log("Student saved with ID:", studentId);
+//         alert("Student saved with ID: ");
+//         // Clear the input fields after successful save
+//         uname.value = "";
+//         pswd.value = "";
+//         reg.value = "";
+//         email.value = "";
+//     }).catch((error) => {
+//         console.error("Error saving student:", error);
+//         alert("Error saving student");
+//     });
+// }
+
+
+//btn.addEventListener('click', save);
+btn.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    save(); // Call the save function
+});
+
+
+// ______________________LOGIN______________________
+ var loginBtn = document.getElementById('login');
+ // Assume you have initialized Firebase and obtained a reference to your database
+
+// Retrieve data from the database
+var databaseRef = ref(database, "TheStd");
+    databaseRef.once('value')
+
+  .then(function(snapshot) {
+    // Process the retrieved data
+    var users = snapshot.val();
+    // Here, 'users' is an object containing user data
+    
+    // Example comparison: Check if a specific user exists
+    var userEmailToCheck = "ush@321";
+    if (users && users[userEmailToCheck]) {
+      console.log("User exists in the database");
+      var userData = users[userEmailToCheck];
+      // Do further processing with userData
+    } else {
+      console.log("User does not exist in the database");
+    }
+
+    // You can perform other checks or comparisons here
+  })
+  .catch(function(error) {
+    console.error("Error fetching data:", error);
+  });
+
+
+// // Assuming you have already initialized Firebase
+// // with your Firebase configuration
+// const emailInp = document.getElementById('sname').value;
+// const password = document.getElementById('spswd').value;
+// // Authenticate the user
+// firebase.auth().signInWithEmailAndPassword(emailInp, password)
+//   .then((userCredential) => {
+//     // Signed in
+//     var user = userCredential.user;
+//     // Once authenticated, you can access the user's UID
+//     var uid = user.uid;
+
+//     // Now, you can check if the user's data exists in the database
+//     firebase.database().ref('TheStd/' + uid).once('value')
+//       .then((snapshot) => {
+//         var userData = snapshot.val();
+//         if (userData) {
+//           // User data exists in the database
+//           console.log("User data:", userData);
+//         } else {
+//           // User data doesn't exist
+//           console.log("User data not found");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching user data:", error);
+//       });
+//   })
+//   .catch((error) => {
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     console.error(errorMessage);
+//   });
+
+
+
+
+// function login() {
+//     const email = document.getElementById('sname').value;
+//     const password = document.getElementById('spswd').value;
+
+//     const usersRef = ref(database, "/TheStd/");
+
+//     // Query the database for the user with the provided email
+//     orderByChild(usersRef, 'email').equalTo(email).once('value', (snapshot) => {
+//         const userData = snapshot.val();
+
+//         // Check if any user with the provided email exists
+//         if (!userData) {
+//             console.log("User not found");
+//             alert("User not found");
+//             return;
+//         }
+
+//         // Iterate over the users to find a match for the provided password
+//         let foundUser = null;
+//         Object.keys(userData).forEach((userId) => {
+//             const user = userData[userId];
+//             if (user.password === password) {
+//                 foundUser = user;
+//             }
+//         });
+
+//         // Check if a user with the provided password was found
+//         if (foundUser) {
+//             console.log("Login successful");
+//             alert("Login successful");
+//             // Proceed with further actions like redirecting to another page
+//         } else {
+//             console.log("Invalid credentials");
+//             alert("Invalid credentials");
+//         }
+//     }).catch((error) => {
+//         console.error("Error logging in:", error);
+//         alert("Error logging in");
+//     });
+//  }
+
+
+// function login() {
+//     const email = document.getElementById('sname').value;
+//     const password = document.getElementById('spswd').value;
+
+//     const usersRef = ref(database, "TheStd");
+
+//     // Query the database for the user with the provided email
+//     orderByChild(usersRef, 'email').equalTo(email).once('value', (snapshot) => {
+//         const userData = snapshot.val();
+
+//         // Check if any user with the provided email exists
+//         if (!userData) {
+//             console.log("User not found");
+//             alert("User not found");
+//             return;
+//         }
+
+//         // Iterate over the users to find a match for the provided password
+//         let foundUser = null;
+//         Object.keys(userData).forEach((userId) => {
+//             const user = userData[userId];
+//             if (user.password === password) {
+//                 foundUser = user;
+//             }
+//         });
+
+//         // Check if a user with the provided password was found
+//         if (foundUser) {
+//             console.log("Login successful");
+//             alert("Login successful");
+//             // Proceed with further actions like redirecting to another page
+//         } else {
+//             console.log("Invalid credentials");
+//             alert("Invalid credentials");
+//         }
+//     }).catch((error) => {
+//         console.error("Error logging in:", error);
+//         alert("Error logging in");
+//     });
+// }
+
+loginBtn.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    login(); // Call the save function
+});
+
+
+  </script> -->
+
+
+</body>
+</html>
+
+
+
